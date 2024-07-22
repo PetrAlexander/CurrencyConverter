@@ -4,5 +4,5 @@ interface Repository {
 
     suspend fun getCurrencyList(): List<Currency>
 
-    suspend fun getConversion(base: Currency, target: Currency): Double
+    suspend fun getConversion(baseCode: String, targetCode: String): Double
 }

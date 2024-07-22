@@ -13,7 +13,7 @@ class RepositoryImpl @Inject constructor(
         return apiService.getCurrencyList().toEntities()
     }
 
-    override suspend fun getConversion(base: Currency, target: Currency): Double {
-        return apiService.getConversion(base.code, target.code).conversion
+    override suspend fun getConversion(baseCode: String, targetCode: String): Double {
+        return apiService.getConversion(baseCode, targetCode).conversion
     }
 }
