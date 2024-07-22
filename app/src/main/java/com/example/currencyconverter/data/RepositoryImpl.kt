@@ -9,6 +9,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : Repository {
+
     override suspend fun getCurrencyList(): List<Currency> {
         return apiService.getCurrencyList().toEntities()
     }
