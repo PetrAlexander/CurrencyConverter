@@ -37,7 +37,7 @@ class DefaultConversionComponent @AssistedInject constructor(
     @OptIn(ExperimentalCoroutinesApi::class)
     override val model: StateFlow<ConversionStore.State> = store.stateFlow
 
-    override fun changeAmount(amount: Double) {
+    override fun changeAmountField(amount: String) {
         store.accept(ConversionStore.Intent.ChangeAmount(amount))
     }
 

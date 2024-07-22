@@ -16,7 +16,7 @@ import javax.inject.Inject
 interface ConversionStore : Store<Intent, State, Label> {
 
     sealed interface Intent {
-        data class ChangeAmount(val amount: Double) : Intent
+        data class ChangeAmount(val amount: String) : Intent
 
         data class ClickConvert(
             val amount: Double,
@@ -67,7 +67,7 @@ class ConversionStoreFactory @Inject constructor(
         object : ConversionStore, Store<Intent, State, Label> by storeFactory.create(
             name = "ConversionStore",
             initialState = State(
-                amount = 1.0,
+                amount = BASE_TEXT_FIELD_VALUE,
                 baseCurrency = Currency(Currency.BASE_CURRENCY),
                 targetCurrency = Currency(Currency.TARGET_CURRENCY),
                 currencyListState = State.CurrencyListState.Initial
@@ -103,7 +103,11 @@ class ConversionStoreFactory @Inject constructor(
         override fun executeIntent(intent: Intent, getState: () -> State) {
             when (intent) {
                 is Intent.ChangeAmount -> {
-                    dispatch(Msg.ChangeAmount(intent.amount))
+                    try {
+                        dispatch(Msg.ChangeAmount(intent.amount.toDouble()))
+                    } catch (e: Exception) {
+                        dispatch(Msg.ChangeAmount(BASE_TEXT_FIELD_VALUE))
+                    }
                 }
 
                 is Intent.ClickConvert -> {
@@ -161,5 +165,9 @@ class ConversionStoreFactory @Inject constructor(
                 copy(currencyListState = State.CurrencyListState.Error)
             }
         }
+    }
+
+    companion object {
+        private const val BASE_TEXT_FIELD_VALUE = 1.0
     }
 }

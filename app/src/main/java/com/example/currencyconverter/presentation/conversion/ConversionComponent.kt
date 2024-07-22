@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface ConversionComponent {
     val model: StateFlow<ConversionStore.State>
 
-    fun changeAmount(amount: Double)
+    fun changeAmountField(amount: String)
 
     fun clickConvert(amount: Double, baseCode: String, targetCode: String)
 
