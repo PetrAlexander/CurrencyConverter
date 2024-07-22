@@ -1,12 +1,20 @@
 package com.example.currencyconverter.di
 
 import android.content.Context
+import com.example.currencyconverter.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component
+@Component(
+    modules = [
+        DataModule::class,
+        PresentationModule::class
+    ]
+)
 interface ApplicationComponent {
+
+    fun inject(activity: MainActivity)
 
     @Component.Factory
     interface Factory {
